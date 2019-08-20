@@ -20,7 +20,7 @@ class Observe extends EventEmitter {
             watcher.on("add", async (filepath) => {
                 //if the new filename is exactly error.log
                 if (filepath.includes("error.log")) {
-                    debug(`[${new Date().toLocaleString()}] ${filePath} has been added.`);
+                    debug(`[${new Date().toLocaleString()}] ${filepath} has been added.`);
 
                     //Read content of new file
                     let fileContent = await fsExtra.readFile(filepath);
@@ -30,7 +30,7 @@ class Observe extends EventEmitter {
 
                     // remove file error.log
                     await fsExtra.unlink(filepath);
-                    debug(`[${new Date().toLocaleString()}] ${filePath} has been removed.`);
+                    debug(`[${new Date().toLocaleString()}] ${filepath} has been removed.`);
                 }
             });
         } catch (error) {
@@ -38,5 +38,4 @@ class Observe extends EventEmitter {
         }
     }
 }
-
 module.exports = Observe;
