@@ -1,6 +1,8 @@
 const chokidar = require('chokidar');
 const EventEmitter = require('events').EventEmitter;
 const fsExtra = require('fs-extra');
+const readLastLines = require("read-last-lines");
+
 
 let debug = console.log.bind(console);
 
@@ -33,9 +35,18 @@ class Observe extends EventEmitter {
                     debug(`[${new Date().toLocaleString()}] ${filepath} has been removed.`);
                 }
             });
+
+            watcher.on('change', async (filepath) => {
+                debug(`[${new Date().toLocaleString()}] ${filepath} has been updated.`);
+
+                let updateContent = await readLastLines.read(filepath, 1);
+
+                this.emit("file-has-been-updated", {message: updateContent});
+            });
         } catch (error) {
             debug(error.toString());
         }
     }
 }
+
 module.exports = Observe;

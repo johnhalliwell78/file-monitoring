@@ -19,6 +19,7 @@
   "dependencies": {
     "chokidar": "^3.0.2",
     "fs-extra": "^8.1.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "read-last-lines": "^1.7.1"
   }
 }
